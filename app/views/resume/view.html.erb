@@ -5,15 +5,86 @@
     <span class="navbar-brand mb-0 h1"><%= current_user.name %> 님 </span>
       
       <!-- 이동버튼   -->
-    <button class="btn btn-primary" type="button">이전</button>
-    <button class="btn btn-primary" type="button">다음</button>
+    <a class="btn btn-primary" href=<%= '/view/' + (@res.id - 1).to_s %> type="button">이전</a>
+    <a class="btn btn-primary" href=<%= '/view/' + (@res.id + 1).to_s %> type="button">다음</a>
       
     <div>
-        <input class="form-control" type="number" id="targetPg">
-        <button class="btn btn-primary" type="submit">이동</button>
+        <input type="number" value='<%= @res.id %>' id="targetPg">
+        <button class="btn btn-primary"  onclick="move()">이동</button>
     </div>
     
   </div>
-  
-    
 </nav>
+
+<!-- 평가지 -->
+
+<h1>
+    개인정보
+</h1>
+
+<p><strong>이름 :    </strong><%= @res.name %></p>
+<p><strong>지역 :    </strong><%= @res.city %></p>
+<p><strong>대학 :    </strong><%= @res.univ %></p>
+<p><strong>전공 :    </strong><%= @res.major %></p>
+<p><strong>성별 :    </strong><%= @res.gender %></p>
+<p><strong>병역 :    </strong><%= @res.military %></p>
+<p><strong>학번 :    </strong><%= @res.entryYear %></p>
+<p><strong>남은학기 :    </strong><%= @res.leftSem %></p>
+<p><strong>생일 :    </strong><%= @res.birth %></p>
+<p><strong>폰번호 :    </strong><%= @res.phone %></p>
+<p><strong>이메일 :    </strong><%= @res.email %></p>
+
+<h1>
+    개인 실력
+</h1>
+<p><strong>Python 언어 숙련도:</strong><br/><%= @res.python %></p>
+<p><strong>기타 사용가능 스킬(R, SAS, SPSS, SQL, Hadoop, C, Java, HTML, 포토샵, GIS 등):    </strong><br/><%= @res.skills %></p>
+<p><strong>수강했던 [빅데이터 / 통계 / 수학 관련 과목], [인공지능 / 기계학습 관련 과목], 또는 [외부 교육 / 세미나]가 있다면 적어주세요.:</strong><br/><%= @res.dataLecture %></p>
+<p><strong>경험한 프로젝트 및 대외활동을 적어주세요. (* 꼭 데이터 분석 관련이 아니어도 됩니다. 동아리, 자격증, 수상경력, 발표경험 등 자유롭게 적어주세요.):</strong><br/><%= @res.activity %></p>
+
+<h1>
+    자소서 질문
+</h1>
+<p><strong>[질문1] 간단한 자기소개와 투빅스에 지원하신 동기를 적어주세요. (500자 내외):</strong><br/><%= @res.question1 %></p>
+
+<p><strong>[질문2] 데이터분석 또는 AI 분야에 어떻게 관심을 갖게 되었으며, 그와 관련해 어떤 활동(노력)을 하셨는지 적어주세요. (500자 내외):</strong><br/><%= @res.question2 %></p>
+
+
+<p><strong>[질문3] 협업 활동(프로젝트,팀플 등)을 수행하면서 가장 기억에 남는 경험을 적어주세요. (400자 내외):</strong><br/><%= @res.question3 %></p>
+
+<p><strong>[질문4] 투빅스에서 하고 싶은 프로젝트에 대해 자세히 적어주세요. (400자 내외):</strong><br/><%= @res.question4 %></p>
+
+<p><strong>현재 진행 중이거나 1년 이내에 계획 중인 활동이나 공모전 프로젝트, 인턴 활동 등의 계획이 있으면 간단하게 적어주세요.:</strong><br/><%= @res.question5 %></p>
+
+
+<h1>
+    채점 결과
+</h1>
+
+<%= form_with url: "/move/" + @res.id.to_s, method: :post do |form| %>
+<%= form.label 'score1', '성실/열정(3점)' %>    
+<%= form.number_field 'score1', value: @scr.score1, in: 0..3, step: 0.5 %>
+
+<%= form.label 'score2', '실력(3점)' %>    
+<%= form.number_field 'score2', value: @scr.score2, in: 0..3, step: 0.5 %>
+
+<%= form.label 'score3', '문제해결능력(2점)' %>    
+<%= form.number_field 'score3', value: @scr.score3, in: 0..2, step: 0.5 %>
+
+<%= form.label 'score4', current_user.standard + '(2점)' %>    
+<%= form.number_field 'score4', value: @scr.score4, in: 0..2, step: 0.5 %>
+
+<%= form.submit "다음", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javaScript">
+
+    
+    
+    function move(){
+        targetPg = document.getElementById("targetPg").value;
+        
+        // console.log(targetPg);
+         location.href = "/view/" + targetPg;
+    }
+</script>

@@ -1,6 +1,8 @@
 require 'csv'
-task :insert_resume do
 
+namespace :resume do
+  desc "TODO"
+  task insert_resume: :environment do
     csv_text = File.read(Rails.root.join('resume', '16_resumes.csv'))
     csv = CSV.parse(csv_text, :headers => true, :encoding => 'UTF-32BE:UTF-8')
     csv.each do |row|
@@ -30,4 +32,6 @@ task :insert_resume do
      end
 
     puts "There are now #{Resume.count} rows in the transactions table"
+  end
+
 end
