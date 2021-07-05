@@ -34,4 +34,21 @@ namespace :resume do
     puts "There are now #{Resume.count} rows in the transactions table"
   end
 
+  desc "TODO"
+  task insertInterview: :environment do
+    arr = [ 34,   3,  38, 172, 227,  27,  61, 161,  76, 275,  40, 203, 145,
+       270, 224, 197, 146, 234, 210,  11, 246, 100,   0,  98,  74,  42,
+       181,  96, 201, 140, 138,  43, 265,  60, 109, 149, 198, 250, 280,
+        95,  89, 157, 152, 263, 287,  58, 189,  36, 133, 150,  19, 205,
+        52,  39, 170, 107, 253, 166, 260, 116, 162, 164, 297, 199, 155,
+       120, 129, 241, 182, 306,  45, 200, 112,   7, 141, 165, 245, 185,
+       206, 214, 215, 193,  32, 160]
+     
+     arr2 = []
+     arr.each {|a| arr2.append(a+1)}
+     
+     Resume.all.each {|r| r.update(isInterview: true) if arr2.include?(r.id)}
+     
+    puts "update finish"
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_20_093725) do
+ActiveRecord::Schema.define(version: 2021_07_01_054446) do
 
   create_table "resumes", force: :cascade do |t|
     t.string "name"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2021_06_20_093725) do
     t.text "interviewTime"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "isInterview"
   end
 
   create_table "scores", force: :cascade do |t|
@@ -47,6 +48,8 @@ ActiveRecord::Schema.define(version: 2021_06_20_093725) do
     t.float "score4"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "isFriend"
+    t.boolean "isInterview"
     t.index ["resume_id"], name: "index_scores_on_resume_id"
     t.index ["user_id"], name: "index_scores_on_user_id"
   end

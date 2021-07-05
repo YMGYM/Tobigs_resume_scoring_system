@@ -5,8 +5,8 @@
     <span class="navbar-brand mb-0 h1"><%= current_user.name %> 님 </span>
       
       <!-- 이동버튼   -->
-    <a class="btn btn-primary" href=<%= '/view/' + (@res.id - 1).to_s %> type="button">이전</a>
-    <a class="btn btn-primary" href=<%= '/view/' + (@res.id + 1).to_s %> type="button">다음</a>
+    <!-- <a class="btn btn-primary" href=<%= '/view/' + (@res.id - 1).to_s %> type="button">이전</a> -->
+    <!-- <a class="btn btn-primary" href=<%= '/view/' + (@res.id + 1).to_s %> type="button">다음</a> -->
       
     <div>
         <input type="number" value='<%= @res.id %>' id="targetPg">
@@ -45,16 +45,16 @@
 <h1>
     자소서 질문
 </h1>
-<p><strong>[질문1] 간단한 자기소개와 투빅스에 지원하신 동기를 적어주세요. (500자 내외):</strong><br/><%= @res.question1 %></p>
+<p><strong>[질문1] 간단한 자기소개와 투빅스에 지원하신 동기를 적어주세요. (500자 내외) - <%= @res.question1.size %> 글자 :</strong> <br/><%= @res.question1 %></p>
 
-<p><strong>[질문2] 데이터분석 또는 AI 분야에 어떻게 관심을 갖게 되었으며, 그와 관련해 어떤 활동(노력)을 하셨는지 적어주세요. (500자 내외):</strong><br/><%= @res.question2 %></p>
+<p><strong>[질문2] 데이터분석 또는 AI 분야에 어떻게 관심을 갖게 되었으며, 그와 관련해 어떤 활동(노력)을 하셨는지 적어주세요. (500자 내외) - <%= @res.question2.size %> 글자:</strong><br/><%= @res.question2 %></p>
 
 
-<p><strong>[질문3] 협업 활동(프로젝트,팀플 등)을 수행하면서 가장 기억에 남는 경험을 적어주세요. (400자 내외):</strong><br/><%= @res.question3 %></p>
+<p><strong>[질문3] 협업 활동(프로젝트,팀플 등)을 수행하면서 가장 기억에 남는 경험을 적어주세요. (400자 내외) - <%= @res.question3.size %> 글자 :</strong><br/><%= @res.question3 %></p>
 
-<p><strong>[질문4] 투빅스에서 하고 싶은 프로젝트에 대해 자세히 적어주세요. (400자 내외):</strong><br/><%= @res.question4 %></p>
+<p><strong>[질문4] 투빅스에서 하고 싶은 프로젝트에 대해 자세히 적어주세요. (400자 내외) - <%= @res.question4.size %> 글자 :</strong><br/><%= @res.question4 %></p>
 
-<p><strong>현재 진행 중이거나 1년 이내에 계획 중인 활동이나 공모전 프로젝트, 인턴 활동 등의 계획이 있으면 간단하게 적어주세요.:</strong><br/><%= @res.question5 %></p>
+<p><strong>현재 진행 중이거나 1년 이내에 계획 중인 활동이나 공모전 프로젝트, 인턴 활동 등의 계획이 있으면 간단하게 적어주세요.: </strong><br/><%= @res.question5 %></p>
 
 
 <h1>
@@ -74,9 +74,17 @@
 <%= form.label 'score4', current_user.standard + '(2점)' %>    
 <%= form.number_field 'score4', value: @scr.score4, in: 0..2, step: 0.5 %>
 
+<%= form.label 'isFriend', '지인' %>    
+<%= form.check_box :isFriend, checked: @scr.isFriend, checked_value: "1", unchecked_value: "0" %>
+
 <%= form.submit "다음", class: "btn btn-primary" %>
+<!-- <%= link_to '이전', :back, class: "btn btn-primary" %> -->
 <% end %>
 
+
+<p>
+    궁금한 점, 안되는 점이 있으면 부회장 안민준(010-4053-6087)에 연락 주시면 해결해 드리겠습니다.
+</p>
 <script type="text/javaScript">
 
     
