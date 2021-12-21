@@ -8,20 +8,20 @@ class ResumeController < ApplicationController
     def view
         
         # 1차때 사용
-        # if params[:id] != nil
-        #     id = params[:id].to_i
-        # else 
-        #     id = 1
-        # end
-        
-        
-        
-        # 2차때 사용
         if params[:id] != nil
             id = params[:id].to_i
         else 
-            id = 35 # 1등 아이디
+            id = 1
         end
+        
+        
+        
+        # # 2차때 사용
+        # if params[:id] != nil
+        #     id = params[:id].to_i
+        # else 
+        #     id = 35 # 1등 아이디
+        # end
         
         
         # 여기는 공통
@@ -44,19 +44,18 @@ class ResumeController < ApplicationController
         
         id = params["id"].to_i
         # 점수 업데이트 - 1차 이후에는 사용하지 않으므로 삭제
-        # scr = current_user.scores.where(resume_id: id)
+        scr = current_user.scores.where(resume_id: id)
         
-        # if scr.present?
-        #     scr.update(user_id: current_user.id, resume_id: id, score1: params['score1'].to_f, score2: params['score2'].to_f, score3: params['score3'].to_f, score4: params['score4'].to_f, isFriend: params['isFriend'])
-        # else
-        #     scr.create(user_id: current_user.id, resume_id: id, score1: params['score1'].to_f, score2: params['score2'].to_f, score3: params['score3'].to_f, score4: params['score4'].to_f, isFriend: params['isFriend'])
-           
-        # end
-        # redirect_to '/view/' + (id+1).to_s
+        if scr.present?
+            scr.update(user_id: current_user.id, resume_id: id, score1: params['score1'].to_f, score2: params['score2'].to_f, score3: params['score3'].to_f, score4: params['score4'].to_f, isFriend: params['isFriend'])
+        else
+            scr.create(user_id: current_user.id, resume_id: id, score1: params['score1'].to_f, score2: params['score2'].to_f, score3: params['score3'].to_f, score4: params['score4'].to_f, isFriend: params['isFriend'])
+        end
+        redirect_to '/view/' + (id+1).to_s
         
         # 인터뷰 대상자만 보기 - 2차때 사용
-        id = findInterview(id)
-        redirect_to '/view/' + (id).to_s
+        # id = findInterview(id)
+        # redirect_to '/view/' + (id).to_s
         
     end
     
